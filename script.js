@@ -28,4 +28,3 @@ const doTheMaths = function (a, b, operator) {
     }
 };
 
-console.log(doTheMaths(2, 10, 'fjkl;j'));

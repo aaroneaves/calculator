@@ -36,11 +36,16 @@ const doTheMaths = function (a, b, operator) {
         output= divide(a, b);
     } else {
         return 'ERROR';
-    }
-    if (output % 1 === 0) {
-        return output;
+    };
+
+    if (output % 1 != 0) {
+        output = parseFloat(output.toFixed(2));
+    };
+
+    if (output.toString().length > 10) {
+        return output.toExponential(4);
     } else {
-        return parseFloat(output.toFixed(2));
+        return output;
     };
 };
 

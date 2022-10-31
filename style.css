@@ -1,3 +1,9 @@
+body {
+    background-image: url('background-img.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 #display {
     font-size: 50px;
     border: 1px solid black;
@@ -18,24 +24,20 @@
     align-items: center;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 20vh;
+    margin-top: 25vh;
     border: 1px solid black;
     flex-wrap: wrap;
     padding: 10px;
-    background-color: rgba(77, 3, 3, 0.66);
+    background-image: radial-gradient(#868673, #51514a);
     justify-content: space-around;
     border-radius: 2px;
-
 }
 
 .small-container {
     display: flex;
     gap: 5px;
-    /*margin-bottom: 5px;*/
     margin-left: auto;
     margin-right: auto;
-    /*margin-bottom: 0px;
-    margin-top: 0px;*/
 }
 
 button {
@@ -46,14 +48,19 @@ button {
     border-radius: 5px;
     font-size: 18px;
     background-color: rgb(236, 236, 236);
+    box-shadow: 0 1px rgb(158, 158, 158);
 }
 
 #clear {
     width: 160px;
+    background-color: red;
+    color: white;
 }
 
 #equals {
     width: 105px;
+    background-color: rgb(41, 75, 197);
+    color: white;
 }
 
 #last-row {
@@ -61,5 +68,13 @@ button {
 }
 
 button:hover {
-    background-color: rgb(191, 191, 191);
+    filter: brightness(120%);
+}
+
+button:active {
+    transform: translateY(3px);
+}
+
+.operator-button {
+    background-color: rgb(180, 180, 180);
 }

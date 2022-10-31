@@ -3,6 +3,7 @@ let secondNumber;
 let operatorButton;
 let answer = false;
 let activeOperator = false;
+let output;
 
 const add = function (a, b) {
     return a + b;
@@ -17,21 +18,30 @@ const multiply = function (a, b) {
 };
 
 const divide = function (a, b) {
-    return a / b;
+    if (b === 0) {
+        return 'ERROR';
+    } else {
+        return a / b;
+    };
 };
 
 const doTheMaths = function (a, b, operator) {
     if (operator === 'add') {
-        return add(a, b);
+        output = add(a, b);
     } else if (operator === 'subtract') {
-        return subtract(a, b);
+        output = subtract(a, b);
     } else if (operator === 'multiply') {
-        return multiply(a, b);
+        output = multiply(a, b);
     } else if  (operator === 'divide') {
-        return divide(a, b);
+        output= divide(a, b);
     } else {
-        return 'There is an error, my guy';
+        return 'ERROR';
     }
+    if (output % 1 === 0) {
+        return output;
+    } else {
+        return output.toFixed(2);
+    };
 };
 
 const display = document.querySelector('#display');
@@ -58,6 +68,15 @@ equalsButton.addEventListener('click', () => {
     }
 });
 
+const getAnswer = function () {
+    secondNumber = display.textContent;
+    display.textContent = doTheMaths(+firstNumber, +secondNumber, operatorButton);
+    answer = true;
+    firstNumber = null;
+    secondNumber = null;
+    activeOperator = false;  
+};
+
 
 
 //Operator Buttons: add, subtract, multiply, divide
@@ -68,6 +87,10 @@ addButton.addEventListener('click', () => {
         display.textContent = null;
         operatorButton = 'add';
         activeOperator = true;
+    };
+
+    if (activeOperator && display.textContent) {
+        getAnswer();
     };
 });
 
@@ -102,15 +125,13 @@ divideButton.addEventListener('click', () => {
 });
 
 
-
-
-
-
-
-
 //0-9 buttons
 const btn0 = document.querySelector('#btn0');
 btn0.addEventListener('click', () => {
+    if (answer) {
+        display.textContent = null;
+        answer = false;
+    }
     display.textContent += 0;
 });
 

@@ -3,6 +3,7 @@ let secondNumber;
 let operatorButton;
 let operatorMode = false;
 let answerMode = false;
+let errorMode = false;
 let output;
 
 const add = function (a, b) {
@@ -34,8 +35,11 @@ const doTheMaths = function (a, b, operator) {
         output = multiply(a, b);
     } else if  (operator === 'divide') {
         output= divide(a, b);
-    } else {
-        return 'ERROR';
+    };
+
+    if (output === 'ERROR'){
+        errorMode = true;
+        return output;
     };
 
     if (output % 1 != 0) {
@@ -63,6 +67,7 @@ const clearEverything = function () {
     operatorButton = null;
     operatorMode = false;
     answerMode = false;
+    errorMode = false;
 };
 
 const equalsButton = document.querySelector('#equals');
@@ -70,8 +75,11 @@ equalsButton.addEventListener('click', () => {
     if (operatorButton && display.textContent && !operatorMode){
         getAnswer();
         operatorButton = null;
-    } else if (operatorMode) {
+    } else if (errorMode) {
         clearEverything();
+    } else if (operatorMode) {
+        display.textContent = 'ERROR';
+        errorMode = true;
     };
 });
 
@@ -86,6 +94,7 @@ const getAnswer = function () {
 //Operator Buttons: add, subtract, multiply, divide
 const addButton = document.querySelector('#add');
 addButton.addEventListener('click', () => {
+    if (errorMode) clearEverything();
     if (display.textContent && operatorButton && !operatorMode) {
         getAnswer();
         operatorMode = true;
@@ -101,6 +110,7 @@ addButton.addEventListener('click', () => {
 
 const subtractButton = document.querySelector('#subtract');
 subtractButton.addEventListener('click', () => {
+    if (errorMode) clearEverything();
     if (display.textContent && operatorButton && !operatorMode) {
         getAnswer();
         operatorMode = true;
@@ -116,6 +126,7 @@ subtractButton.addEventListener('click', () => {
 
 const multiplyButton = document.querySelector('#multiply');
 multiplyButton.addEventListener('click', () => {
+    if (errorMode) clearEverything();
     if (display.textContent && operatorButton && !operatorMode) {
         getAnswer();
         operatorMode = true;
@@ -131,6 +142,7 @@ multiplyButton.addEventListener('click', () => {
 
 const divideButton = document.querySelector('#divide');
 divideButton.addEventListener('click', () => {
+    if (errorMode) clearEverything();
     if (display.textContent && operatorButton && !operatorMode) {
         getAnswer();
         operatorMode = true;
@@ -146,6 +158,7 @@ divideButton.addEventListener('click', () => {
 
 //0-9 buttons
 const inputNumber = function () {
+    if (errorMode) clearEverything();
     if (answerMode || operatorMode) {
         display.textContent = null;
     }

@@ -2,6 +2,7 @@ let firstNumber;
 let secondNumber;
 let operatorButton;
 let answer = false;
+let activeOperator = false;
 
 const add = function (a, b) {
     return a + b;
@@ -39,6 +40,10 @@ const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', () => {
     display.textContent = '';
     firstNumber = null;
+    secondNumber = null;
+    activeOperator = false;
+    answer = false;
+
 });
 
 const equalsButton = document.querySelector('#equals');
@@ -49,6 +54,7 @@ equalsButton.addEventListener('click', () => {
         answer = true;
         firstNumber = null;
         secondNumber = null;
+        activeOperator = false;
     }
 });
 
@@ -57,30 +63,42 @@ equalsButton.addEventListener('click', () => {
 //Operator Buttons: add, subtract, multiply, divide
 const addButton = document.querySelector('#add');
 addButton.addEventListener('click', () => {
-    firstNumber = display.textContent;
-    display.textContent = null;
-    operatorButton = 'add';
+    if (!activeOperator){
+        firstNumber = display.textContent;
+        display.textContent = null;
+        operatorButton = 'add';
+        activeOperator = true;
+    };
 });
 
 const subtractButton = document.querySelector('#subtract');
 subtractButton.addEventListener('click', () => {
-    firstNumber = display.textContent;
-    display.textContent = null;
-    operatorButton = 'subtract';
+    if (!activeOperator){
+        firstNumber = display.textContent;
+        display.textContent = null;
+        operatorButton = 'subtract';
+        activeOperator = true;
+    };
 });
 
 const multiplyButton = document.querySelector('#multiply');
 multiplyButton.addEventListener('click', () => {
-    firstNumber = display.textContent;
-    display.textContent = null;
-    operatorButton = 'multiply';
+    if (!activeOperator){
+        firstNumber = display.textContent;
+        display.textContent = null;
+        operatorButton = 'multiply';
+        activeOperator = true;
+    };
 });
 
 const divideButton = document.querySelector('#divide');
 divideButton.addEventListener('click', () => {
-    firstNumber = display.textContent;
-    display.textContent = null;
-    operatorButton = 'divide';
+    if (!activeOperator){
+        firstNumber = display.textContent;
+        display.textContent = null;
+        operatorButton = 'divide';
+        activeOperator = true;
+    };
 });
 
 

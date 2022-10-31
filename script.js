@@ -83,8 +83,6 @@ const getAnswer = function () {
         answerMode = true; 
 };
 
-
-
 //Operator Buttons: add, subtract, multiply, divide
 const addButton = document.querySelector('#add');
 addButton.addEventListener('click', () => {

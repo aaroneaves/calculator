@@ -1,3 +1,8 @@
+let firstNumber;
+let secondNumber;
+let operatorButton;
+let answer = false;
+
 const add = function (a, b) {
     return a + b;
 };
@@ -30,11 +35,62 @@ const doTheMaths = function (a, b, operator) {
 
 const display = document.querySelector('#display');
 
-const clear = document.querySelector('#clear');
-clear.addEventListener('click', () => {
+const clearButton = document.querySelector('#clear');
+clearButton.addEventListener('click', () => {
     display.textContent = '';
+    firstNumber = null;
 });
 
+const equalsButton = document.querySelector('#equals');
+equalsButton.addEventListener('click', () => {
+    if (!answer) {
+        secondNumber = display.textContent;
+        display.textContent = doTheMaths(+firstNumber, +secondNumber, operatorButton);
+        answer = true;
+        firstNumber = null;
+        secondNumber = null;
+    }
+});
+
+
+
+//Operator Buttons: add, subtract, multiply, divide
+const addButton = document.querySelector('#add');
+addButton.addEventListener('click', () => {
+    firstNumber = display.textContent;
+    display.textContent = null;
+    operatorButton = 'add';
+});
+
+const subtractButton = document.querySelector('#subtract');
+subtractButton.addEventListener('click', () => {
+    firstNumber = display.textContent;
+    display.textContent = null;
+    operatorButton = 'subtract';
+});
+
+const multiplyButton = document.querySelector('#multiply');
+multiplyButton.addEventListener('click', () => {
+    firstNumber = display.textContent;
+    display.textContent = null;
+    operatorButton = 'multiply';
+});
+
+const divideButton = document.querySelector('#divide');
+divideButton.addEventListener('click', () => {
+    firstNumber = display.textContent;
+    display.textContent = null;
+    operatorButton = 'divide';
+});
+
+
+
+
+
+
+
+
+//0-9 buttons
 const btn0 = document.querySelector('#btn0');
 btn0.addEventListener('click', () => {
     display.textContent += 0;
@@ -42,45 +98,81 @@ btn0.addEventListener('click', () => {
 
 const btn1 = document.querySelector('#btn1');
 btn1.addEventListener('click', () => {
+    if (answer) {
+        display.textContent = null;
+        answer = false;
+    }
     display.textContent += 1;
 });
 
 const btn2 = document.querySelector('#btn2');
 btn2.addEventListener('click', () => {
+    if (answer) {
+        display.textContent = null;
+        answer = false;
+    }
     display.textContent += 2;
 });
 
 const btn3 = document.querySelector('#btn3');
 btn3.addEventListener('click', () => {
+    if (answer) {
+        display.textContent = null;
+        answer = false;
+    }
     display.textContent += 3;
 });
 
 const btn4 = document.querySelector('#btn4');
 btn4.addEventListener('click', () => {
+    if (answer) {
+        display.textContent = null;
+        answer = false;
+    }
     display.textContent += 4;
 });
 
 const btn5 = document.querySelector('#btn5');
 btn5.addEventListener('click', () => {
+    if (answer) {
+        display.textContent = null;
+        answer = false;
+    }
     display.textContent += 5;
 });
 
 const btn6 = document.querySelector('#btn6');
 btn6.addEventListener('click', () => {
+    if (answer) {
+        display.textContent = null;
+        answer = false;
+    }
     display.textContent += 6;
 });
 
 const btn7 = document.querySelector('#btn7');
 btn7.addEventListener('click', () => {
+    if (answer) {
+        display.textContent = null;
+        answer = false;
+    }
     display.textContent += 7;
 });
 
 const btn8 = document.querySelector('#btn8');
 btn8.addEventListener('click', () => {
+    if (answer) {
+        display.textContent = null;
+        answer = false;
+    }
     display.textContent += 8;
 });
 
 const btn9 = document.querySelector('#btn9');
 btn9.addEventListener('click', () => {
+    if (answer) {
+        display.textContent = null;
+        answer = false;
+    }
     display.textContent += 9;
 });

@@ -1,8 +1,8 @@
 let firstNumber;
 let secondNumber;
 let operatorButton;
-let answer = false;
-let activeOperator = false;
+let operatorMode = false;
+let answerMode = false;
 let output;
 
 const add = function (a, b) {
@@ -40,7 +40,7 @@ const doTheMaths = function (a, b, operator) {
     if (output % 1 === 0) {
         return output;
     } else {
-        return output.toFixed(2);
+        return parseFloat(output.toFixed(2));
     };
 };
 
@@ -48,33 +48,34 @@ const display = document.querySelector('#display');
 
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', () => {
+    clearEverything();
+});
+
+const clearEverything = function () {
     display.textContent = '';
     firstNumber = null;
     secondNumber = null;
-    activeOperator = false;
-    answer = false;
-
-});
+    operatorButton = null;
+    operatorMode = false;
+    answerMode = false;
+};
 
 const equalsButton = document.querySelector('#equals');
 equalsButton.addEventListener('click', () => {
-    if (!answer) {
-        secondNumber = display.textContent;
-        display.textContent = doTheMaths(+firstNumber, +secondNumber, operatorButton);
-        answer = true;
-        firstNumber = null;
-        secondNumber = null;
-        activeOperator = false;
-    }
+    if (operatorButton && display.textContent && !operatorMode){
+        getAnswer();
+        operatorButton = null;
+    } else if (operatorMode) {
+        clearEverything();
+    };
 });
 
 const getAnswer = function () {
-    secondNumber = display.textContent;
-    display.textContent = doTheMaths(+firstNumber, +secondNumber, operatorButton);
-    answer = true;
-    firstNumber = null;
-    secondNumber = null;
-    activeOperator = false;  
+        secondNumber = display.textContent;
+        display.textContent = doTheMaths(+firstNumber, +secondNumber, operatorButton);
+        firstNumber = display.textContent;
+        secondNumber = null;
+        answerMode = true; 
 };
 
 
@@ -82,136 +83,147 @@ const getAnswer = function () {
 //Operator Buttons: add, subtract, multiply, divide
 const addButton = document.querySelector('#add');
 addButton.addEventListener('click', () => {
-    if (!activeOperator){
-        firstNumber = display.textContent;
-        display.textContent = null;
-        operatorButton = 'add';
-        activeOperator = true;
-    };
-
-    if (activeOperator && display.textContent) {
+    if (display.textContent && operatorButton && !operatorMode) {
         getAnswer();
-    };
+        operatorMode = true;
+        operatorButton = 'add';
+    } else if (display.textContent) {
+        operatorMode = true;
+        operatorButton = 'add';
+        firstNumber = display.textContent;
+    } else if (operatorMode && !display.textContent) {
+        operatorButton = 'add'; 
+    }
 });
 
 const subtractButton = document.querySelector('#subtract');
 subtractButton.addEventListener('click', () => {
-    if (!activeOperator){
-        firstNumber = display.textContent;
-        display.textContent = null;
+    if (display.textContent && operatorButton && !operatorMode) {
+        getAnswer();
+        operatorMode = true;
         operatorButton = 'subtract';
-        activeOperator = true;
-    };
+    } else if (display.textContent) {
+        operatorMode = true;
+        operatorButton = 'subtract';
+        firstNumber = display.textContent;
+    } else if (operatorMode && !display.textContent) {
+        operatorButton = 'subtract'; 
+    }
 });
 
 const multiplyButton = document.querySelector('#multiply');
 multiplyButton.addEventListener('click', () => {
-    if (!activeOperator){
-        firstNumber = display.textContent;
-        display.textContent = null;
+    if (display.textContent && operatorButton && !operatorMode) {
+        getAnswer();
+        operatorMode = true;
         operatorButton = 'multiply';
-        activeOperator = true;
-    };
+    } else if (display.textContent) {
+        operatorMode = true;
+        operatorButton = 'multiply';
+        firstNumber = display.textContent;
+    } else if (operatorMode && !display.textContent) {
+        operatorButton = 'multiply'; 
+    }
 });
 
 const divideButton = document.querySelector('#divide');
 divideButton.addEventListener('click', () => {
-    if (!activeOperator){
-        firstNumber = display.textContent;
-        display.textContent = null;
+    if (display.textContent && operatorButton && !operatorMode) {
+        getAnswer();
+        operatorMode = true;
         operatorButton = 'divide';
-        activeOperator = true;
-    };
+    } else if (display.textContent) {
+        operatorMode = true;
+        operatorButton = 'divide';
+        firstNumber = display.textContent;
+    } else if (operatorMode && !display.textContent) {
+        operatorButton = 'divide'; 
+    }
 });
 
-
 //0-9 buttons
+const inputNumber = function () {
+    if (answerMode || operatorMode) {
+        display.textContent = null;
+    }
+    operatorMode = false;
+    answerMode = false;
+};
+
 const btn0 = document.querySelector('#btn0');
 btn0.addEventListener('click', () => {
-    if (answer) {
-        display.textContent = null;
-        answer = false;
-    }
+    inputNumber();
     display.textContent += 0;
 });
 
 const btn1 = document.querySelector('#btn1');
 btn1.addEventListener('click', () => {
-    if (answer) {
-        display.textContent = null;
-        answer = false;
+    inputNumber();
+    if (display.textContent.length < 10) {
+        display.textContent += 1;
     }
-    display.textContent += 1;
 });
 
 const btn2 = document.querySelector('#btn2');
 btn2.addEventListener('click', () => {
-    if (answer) {
-        display.textContent = null;
-        answer = false;
+    inputNumber();
+    if (display.textContent.length < 10) {
+        display.textContent += 2;
     }
-    display.textContent += 2;
 });
 
 const btn3 = document.querySelector('#btn3');
 btn3.addEventListener('click', () => {
-    if (answer) {
-        display.textContent = null;
-        answer = false;
+    inputNumber();
+    if (display.textContent.length < 10) {
+        display.textContent += 3;
     }
-    display.textContent += 3;
 });
 
 const btn4 = document.querySelector('#btn4');
 btn4.addEventListener('click', () => {
-    if (answer) {
-        display.textContent = null;
-        answer = false;
+    inputNumber();
+    if (display.textContent.length < 10) {
+        display.textContent += 4;
     }
-    display.textContent += 4;
 });
 
 const btn5 = document.querySelector('#btn5');
 btn5.addEventListener('click', () => {
-    if (answer) {
-        display.textContent = null;
-        answer = false;
-    }
-    display.textContent += 5;
+    inputNumber();
+    if (display.textContent.length < 10) {
+        display.textContent += 5;
+    };
 });
 
 const btn6 = document.querySelector('#btn6');
 btn6.addEventListener('click', () => {
-    if (answer) {
-        display.textContent = null;
-        answer = false;
-    }
-    display.textContent += 6;
+    inputNumber();
+    if (display.textContent.length < 10) {
+        display.textContent += 6;
+    };
 });
 
 const btn7 = document.querySelector('#btn7');
 btn7.addEventListener('click', () => {
-    if (answer) {
-        display.textContent = null;
-        answer = false;
+    inputNumber();
+    if (display.textContent.length < 10) {
+        display.textContent += 7;
     }
-    display.textContent += 7;
 });
 
 const btn8 = document.querySelector('#btn8');
 btn8.addEventListener('click', () => {
-    if (answer) {
-        display.textContent = null;
-        answer = false;
+    inputNumber();
+    if (display.textContent.length < 10) {
+        display.textContent += 8;
     }
-    display.textContent += 8;
 });
 
 const btn9 = document.querySelector('#btn9');
 btn9.addEventListener('click', () => {
-    if (answer) {
-        display.textContent = null;
-        answer = false;
+    inputNumber();
+    if (display.textContent.length < 10) {
+        display.textContent += 9;
     }
-    display.textContent += 9;
 });

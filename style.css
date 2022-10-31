@@ -7,13 +7,14 @@ body {
 #display {
     font-size: 50px;
     border: 1px solid black;
-    padding: 5px 20px;
+    padding: 10px;
     margin-top: 20px;
     margin-bottom: 30px;
     background-color: white;
     border-radius: 2px;
-    width: 225px;
+    width: 250px;
     height: 50px;
+    text-align: right;
 }
 
 #big-container {
@@ -76,5 +77,5 @@ button:active {
 }
 
 .operator-button {
-    background-color: rgb(180, 180, 180);
+    background-color: rgb(189, 189, 189);
 }

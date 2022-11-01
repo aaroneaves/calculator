@@ -15,6 +15,7 @@ body {
     width: 250px;
     height: 50px;
     text-align: right;
+    box-shadow: inset 3px 3px rgb(216, 216, 216);
 }
 
 #big-container {
@@ -31,7 +32,8 @@ body {
     padding: 10px;
     background-image: radial-gradient(#868673, #51514a);
     justify-content: space-around;
-    border-radius: 2px;
+    border-radius: 5px;
+    box-shadow: 10px 10px 10px #3b3b38;
 }
 
 .small-container {

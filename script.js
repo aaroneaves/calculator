@@ -103,6 +103,10 @@ const getAnswer = function () {
 //Operator buttons: add, subtract, multiply, divide
 const addButton = document.querySelector('#add');
 addButton.addEventListener('click', () => {
+    addOperator();
+});
+
+const addOperator = function () {
     if (errorMode) clearEverything();
     if (display.textContent && operatorButton && !operatorMode) {
         getAnswer();
@@ -115,10 +119,14 @@ addButton.addEventListener('click', () => {
     } else if (operatorMode && !display.textContent) {
         operatorButton = 'add'; 
     }
-});
+};
 
 const subtractButton = document.querySelector('#subtract');
 subtractButton.addEventListener('click', () => {
+    subtractOperator();
+});
+
+const subtractOperator = function () {
     if (errorMode) clearEverything();
     if (display.textContent && operatorButton && !operatorMode) {
         getAnswer();
@@ -131,10 +139,14 @@ subtractButton.addEventListener('click', () => {
     } else if (operatorMode && !display.textContent) {
         operatorButton = 'subtract'; 
     }
-});
+};
 
 const multiplyButton = document.querySelector('#multiply');
 multiplyButton.addEventListener('click', () => {
+    multiplyOperator();
+});
+
+const multiplyOperator = function () {
     if (errorMode) clearEverything();
     if (display.textContent && operatorButton && !operatorMode) {
         getAnswer();
@@ -147,10 +159,14 @@ multiplyButton.addEventListener('click', () => {
     } else if (operatorMode && !display.textContent) {
         operatorButton = 'multiply'; 
     }
-});
+};
 
 const divideButton = document.querySelector('#divide');
 divideButton.addEventListener('click', () => {
+    divideOperator();
+});
+
+const divideOperator = function () {
     if (errorMode) clearEverything();
     if (display.textContent && operatorButton && !operatorMode) {
         getAnswer();
@@ -163,7 +179,7 @@ divideButton.addEventListener('click', () => {
     } else if (operatorMode && !display.textContent) {
         operatorButton = 'divide'; 
     }
-});
+};
 
 //0-9 & decimal buttons
 const inputNumber = function () {
@@ -186,7 +202,9 @@ decimalBtn.addEventListener('click', () => {
 const btn0 = document.querySelector('#btn0');
 btn0.addEventListener('click', () => {
     inputNumber();
-    display.textContent += 0;
+    if (display.textContent.length < 10) {
+        display.textContent += 0;
+    }
 });
 
 const btn1 = document.querySelector('#btn1');
@@ -261,12 +279,20 @@ btn9.addEventListener('click', () => {
     }
 });
 
+//Keyboard functionality
 window.addEventListener('keydown', (event) => {
     if (event.defaultPrevented) {
         return; //
     }
 
     switch (event.key) {
+        case ".":
+            if (!display.textContent.includes('.') || (firstNumber && operatorMode)) {
+                inputNumber();
+                display.textContent += '.';
+            }
+            break;
+
         case "0":
             inputNumber();
             if (display.textContent.length < 10) {
@@ -338,21 +364,62 @@ window.addEventListener('keydown', (event) => {
             break;
 
         case "+":
-            alert('it worked');
+            addOperator();
             break;
 
         case "-":
-            alert('it worked');
+            subtractOperator();
             break;
 
         case "*":
-            alert('it worked');
+            multiplyOperator();
             break;
 
         case "/":
-            alert('it worked');
+            divideOperator();
             break;
-}
+
+        case "Backspace":
+            if (errorMode) {
+                clearEverything();
+            } else if (!operatorMode && !answerMode) {
+                display.textContent = display.textContent.slice(0, -1);
+            };
+            break;
+
+        case "Enter":
+            if (operatorButton && display.textContent && !operatorMode){
+                getAnswer();
+                operatorButton = null;
+            } else if (errorMode) {
+                clearEverything();
+            } else if (operatorMode) {
+                display.textContent = 'ERROR';
+                errorMode = true;
+            };
+            break;
+
+        case "=":
+            if (operatorButton && display.textContent && !operatorMode){
+                getAnswer();
+                operatorButton = null;
+            } else if (errorMode) {
+                clearEverything();
+            } else if (operatorMode) {
+                display.textContent = 'ERROR';
+                errorMode = true;
+            };
+            break;
+
+        case "Escape":
+            clearEverything();
+            break;
+
+        default:
+            return;
+    }
 
     event.preventDefault();
 }, true);
+
+

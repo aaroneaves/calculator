@@ -60,6 +60,15 @@ clearButton.addEventListener('click', () => {
     clearEverything();
 });
 
+const backspace = document.querySelector('#backspace');
+backspace.addEventListener('click', () => {
+    if (errorMode) {
+        clearEverything();
+    } else if (!operatorMode && !answerMode) {
+        display.textContent = display.textContent.slice(0, -1);
+    };
+});
+
 const clearEverything = function () {
     display.textContent = '';
     firstNumber = null;
@@ -91,7 +100,7 @@ const getAnswer = function () {
         answerMode = true; 
 };
 
-//Operator Buttons: add, subtract, multiply, divide
+//Operator buttons: add, subtract, multiply, divide
 const addButton = document.querySelector('#add');
 addButton.addEventListener('click', () => {
     if (errorMode) clearEverything();
@@ -156,7 +165,7 @@ divideButton.addEventListener('click', () => {
     }
 });
 
-//0-9 buttons
+//0-9 & decimal buttons
 const inputNumber = function () {
     if (errorMode) clearEverything();
     if (answerMode || operatorMode) {
@@ -165,6 +174,14 @@ const inputNumber = function () {
     operatorMode = false;
     answerMode = false;
 };
+
+const decimalBtn = document.querySelector('#decimal');
+decimalBtn.addEventListener('click', () => {
+    if (!display.textContent.includes('.') || (firstNumber && operatorMode)) {
+        inputNumber();
+        display.textContent += '.';
+    }
+});
 
 const btn0 = document.querySelector('#btn0');
 btn0.addEventListener('click', () => {
@@ -243,3 +260,99 @@ btn9.addEventListener('click', () => {
         display.textContent += 9;
     }
 });
+
+window.addEventListener('keydown', (event) => {
+    if (event.defaultPrevented) {
+        return; //
+    }
+
+    switch (event.key) {
+        case "0":
+            inputNumber();
+            if (display.textContent.length < 10) {
+                display.textContent += 0;
+            };
+            break;
+
+        case "1":
+            inputNumber();
+            if (display.textContent.length < 10) {
+                display.textContent += 1;
+            };
+            break;
+
+        case "2":
+            inputNumber();
+            if (display.textContent.length < 10) {
+                display.textContent += 2;
+            };
+            break;
+            
+        case "3":
+            inputNumber();
+            if (display.textContent.length < 10) {
+                display.textContent += 3;
+            };
+            break;
+
+        case "4":
+            inputNumber();
+            if (display.textContent.length < 10) {
+                display.textContent += 4;
+            };
+            break;
+
+        case "5":
+            inputNumber();
+            if (display.textContent.length < 10) {
+                display.textContent += 5;
+            };
+            break;
+
+        case "6":
+            inputNumber();
+            if (display.textContent.length < 10) {
+                display.textContent += 6;
+            };
+            break;
+
+        case "7":
+            inputNumber();
+            if (display.textContent.length < 10) {
+                display.textContent += 7;
+            };
+            break;
+
+        case "8":
+            inputNumber();
+            if (display.textContent.length < 10) {
+                display.textContent += 8;
+            };
+            break;
+
+        case "9":
+            inputNumber();
+            if (display.textContent.length < 10) {
+                display.textContent += 9;
+            };
+            break;
+
+        case "+":
+            alert('it worked');
+            break;
+
+        case "-":
+            alert('it worked');
+            break;
+
+        case "*":
+            alert('it worked');
+            break;
+
+        case "/":
+            alert('it worked');
+            break;
+}
+
+    event.preventDefault();
+}, true);

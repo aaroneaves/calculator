@@ -181,7 +181,7 @@ const divideOperator = function () {
     }
 };
 
-//0-9 & decimal buttons
+//pos-neg, decimal, and 0-9 buttons
 const inputNumber = function () {
     if (errorMode) clearEverything();
     if (answerMode || operatorMode) {
@@ -190,6 +190,18 @@ const inputNumber = function () {
     operatorMode = false;
     answerMode = false;
 };
+
+const posNeg = document.querySelector('#pos-neg');
+posNeg.addEventListener('click', () => {
+    inputNumber();
+    if (display.textContent.length < 10) {
+        if (display.textContent[0] === '-') {
+            display.textContent = display.textContent.slice(1);
+        } else {
+            display.textContent = '-' + display.textContent;
+        }
+    }
+});
 
 const decimalBtn = document.querySelector('#decimal');
 decimalBtn.addEventListener('click', () => {
@@ -202,7 +214,7 @@ decimalBtn.addEventListener('click', () => {
 const btn0 = document.querySelector('#btn0');
 btn0.addEventListener('click', () => {
     inputNumber();
-    if (display.textContent.length < 10) {
+    if (display.textContent.length < 10 && display.textContent != '0') {
         display.textContent += 0;
     }
 });
@@ -295,7 +307,7 @@ window.addEventListener('keydown', (event) => {
 
         case "0":
             inputNumber();
-            if (display.textContent.length < 10) {
+            if (display.textContent.length < 10 && display.textContent != '0') {
                 display.textContent += 0;
             };
             break;
